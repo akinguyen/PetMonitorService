@@ -90,14 +90,9 @@ if (module === require.main) {
   });
   var io = require("socket.io")(server);
   io.sockets.on("connection", function(socket) {
-    socket.emit("news", { activity: "" });
-  });
-
-  io.sockets.on("connection", function(socket) {
-    socket.emit("news", { activity: "" });
-    socket.on("mouse", function(data) {
-      console.log(data);
-    });
+    setInterval(function() {
+      socket.emit("news", { activity: "" });
+    }, 5000);
   });
 
   io.sockets.emit("data", { hello: "world" });
