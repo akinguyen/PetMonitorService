@@ -15,14 +15,31 @@ const Pet = new Schema({
   rate: {
     type: Number
   },
-  date: {
-    type: Date,
-    default: Date.now
+  timestamp: {
+    type: String
   },
   awake: {
     type: Number
   },
   activity: {
+    type: Number
+  },
+  date: {
+    type: String
+  },
+  time: {
+    type: String
+  },
+  activity0Counter: {
+    type: Number
+  },
+  activity1Counter: {
+    type: Number
+  },
+  activity2Counter: {
+    type: Number
+  },
+  activity3Counter: {
     type: Number
   }
 });
