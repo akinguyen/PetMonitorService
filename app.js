@@ -92,10 +92,25 @@ if (module === require.main) {
 
 app.post("/current", (req, res) => {
   let act = new Act(req.body);
+  Act.find();
   act
     .save()
     .then(user => res.status(200).json(user))
     .catch(err => res.status(404).send(err));
+});
+
+app.get("/state", (req, res) => {
+  Act.findOne({})
+    .sort({ date: -1 })
+    .exec(function(err, data) {
+      if (err) {
+        res.status(200).send(err);
+      }
+      if (data) {
+        res.status(200).send(data);
+        console.log(data);
+      }
+    });
 });
 
 module.exports = app;
