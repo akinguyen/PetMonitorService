@@ -58,6 +58,27 @@ app.get("/activity", (req, res) => {
     res.send(activity);
   });
 });
+
+app.get("/activity/time", (req, res) => {
+  Pet.find((err, pets) => {
+    if (err) {
+      res.status(404).send(err);
+    }
+    let activity = { play: 0, eat: 0, sleep: 0, drink: 0 };
+    for (pet of pets) {
+      if (pet.activity == 0) {
+        activity["play"] = pet.date;
+      } else if (pet.activity == 1) {
+        activity["eat"] = pet.date;
+      } else if (pet.activity == 2) {
+        activity["sleep"] = pet.date;
+      } else if (pet.activity == 3) {
+        activity["drink"] = pet.date;
+      }
+    }
+    res.send(activity);
+  });
+});
 // [END hello_world]
 
 if (module === require.main) {
