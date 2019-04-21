@@ -89,13 +89,10 @@ if (module === require.main) {
     console.log(`App listening on port ${port}`);
   });
   var io = require("socket.io")(server);
-
   io.sockets.on("connection", function(socket) {
-    socket.emit("news", { hello: "world" });
-    socket.on("my other event", function(data) {
-      console.log(data);
-    });
+    socket.emit("news", { activity: "" });
   });
+  io.sockets.emit("data", { hello: "world" });
 }
 
 module.exports = app;
