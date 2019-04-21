@@ -4,7 +4,7 @@ const bodyParse = require("body-parser");
 const morgan = require("morgan");
 const app = express();
 const Pet = require("./Schema/Pet");
-
+const Act = require("./Schema/Act");
 mongoose.connect(
   "mongodb+srv://duyn:meyeu2000@cluster0-jmn7d.mongodb.net/test?retryWrites=true",
   { useNewUrlParser: true }
@@ -88,14 +88,14 @@ if (module === require.main) {
     const port = server.address().port;
     console.log(`App listening on port ${port}`);
   });
-  var io = require("socket.io")(server);
-  io.sockets.on("connection", function(socket) {
-    setInterval(function() {
-      socket.emit("news", { activity: "" });
-    }, 5000);
-  });
-
-  io.sockets.emit("data", { hello: "world" });
 }
+
+app.post("/current", (req, res) => {
+  let act = new Act(req.body);
+  act
+    .save()
+    .then(user => res.status(200).json(user))
+    .catch(err => res.status(404).send(err));
+});
 
 module.exports = app;
