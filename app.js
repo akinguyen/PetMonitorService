@@ -92,6 +92,14 @@ if (module === require.main) {
   io.sockets.on("connection", function(socket) {
     socket.emit("news", { activity: "" });
   });
+
+  io.sockets.on("connection", function(socket) {
+    socket.emit("news", { activity: "" });
+    socket.on("mouse", function(data) {
+      console.log(data);
+    });
+  });
+
   io.sockets.emit("data", { hello: "world" });
 }
 
